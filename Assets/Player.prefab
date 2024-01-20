@@ -121,6 +121,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3cef2c7d32e942ceaa05577d2e59845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
+  moveAction:
+    m_Name: Move
+    m_Type: 0
+    m_ExpectedControlType: Vector2
+    m_Id: e846e7c0-38de-4763-a922-d0e05d7d3099
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 0b549c8b-3d19-4408-8348-03d13c94dc70
+      m_Path: <SwitchProControllerHID>/leftStick
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 0
+    m_Flags: 0
 --- !u!114 &144912081523471964
 MonoBehaviour:
   m_ObjectHideFlags: 0

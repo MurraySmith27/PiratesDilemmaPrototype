@@ -13,7 +13,7 @@ public class GlobalState : MonoBehaviour
 
     public List<GameObject> players;
 
-    public int numPlayers;
+    public int numPlayers = 0;
 
     void Awake()
     {
@@ -31,7 +31,7 @@ public class GlobalState : MonoBehaviour
 
     public void AddPlayer()
     {
-        int playerNum = numPlayers + 1;
+        int playerNum = numPlayers;
         GameObject newPlayer = Instantiate(playerPrefab, playerSpawnPositions[playerNum].transform.position, Quaternion.identity);
 
         newPlayer.GetComponent<PlayerData>().playerNum = playerNum;

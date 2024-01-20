@@ -8,6 +8,7 @@ public class BoatController : MonoBehaviour
     public BoatSpawner boatSpawner;
 
     private Coroutine coroutine;
+
     // private Transform m_boatTransform;
     private const float BoatRespawnHeight = 3f;
     private const float BoatRespawnLength = -10f;
@@ -15,9 +16,10 @@ public class BoatController : MonoBehaviour
     private const float BoatRespawnTime = 5f;
     public int boatTotalCapacity;
     public int boatCurrentCapacity;
-    private int m_playerCapacity[] = [0, 0, 0, 0];
-    public float timeToLive;
-    public int LivingBoats[] = [0, 0, 0, 0];
+    private int[] m_playerCapacity = {0, 0, 0, 0 };
+
+public float timeToLive;
+    public int[] LivingBoats = {0, 0, 0, 0};
 
     public int boatSlot;
 
@@ -56,7 +58,7 @@ public class BoatController : MonoBehaviour
 
     IEnumerator SinkBoat()
     {
-        var c = StartCourtine(SinkAnimation());
+        var c = StartCoroutine(SinkAnimation());
 
         yield return new WaitForSeconds(BoatRespawnTime);
         StopCoroutine(coroutine);
@@ -71,20 +73,25 @@ public class BoatController : MonoBehaviour
         
         while (true)
         {
-            Transform.Translate(new Vector3(0, 1, 0) * Time.deltaTime);
+            transform.Translate(new Vector3(0, 1, 0) * Time.deltaTime);
             yield return null;
         }
     }
 
     IEnumerator SailBoat()
     {
-        var c = StartCourtine(SailBoatAnimation());
+        var c = StartCoroutine(SailBoatAnimation());
 
         yield return new WaitForSeconds(BoatRespawnTime);
         StopCoroutine(coroutine);
         boatSpawner.RespawnBoat(LivingBoats, boatSlot);
         Destroy(this);
         LivingBoats[boatSlot] = 0;
+
+        for (int i = 0; i < 4; i++)
+        {
+            ScoreController.Instance.playerScores[i] += m_playerCapacity[i];
+        }
     }
 
     IEnumerator SailBoatAnimation()
@@ -93,7 +100,7 @@ public class BoatController : MonoBehaviour
         
         while (true)
         {
-            Transform.Translate(new Vector3(-1, 0, 0) * Time.deltaTime);
+            transform.Translate(new Vector3(-1, 0, 0) * Time.deltaTime);
             yield return null;
         }
     }

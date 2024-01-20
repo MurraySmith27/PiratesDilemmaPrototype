@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2071139225296049069}
   - component: {fileID: 7256598517620074636}
   - component: {fileID: 8968663787368205546}
+  - component: {fileID: 8650957294311377923}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -31,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 6, y: 6, z: 6}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -121,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 010304777bd9d764f8d09acebc0df2e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.01
+  speed: 1
   moveActionsPerPlayer:
   - m_Name: Element 0
     m_Type: 0
@@ -295,7 +296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95dc1ac2d0ae44b378b892b97ce79b49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goldToSpawn: {fileID: 0}
+  goldToSpawn: {fileID: 919132149155446097, guid: 28c6742585e2b95438bffc924556a6da, type: 3}
   pickupGold:
   - m_Name: Element 0
     m_Type: 0
@@ -361,3 +362,16 @@ MonoBehaviour:
       m_Action: Input Action
       m_Flags: 0
     m_Flags: 0
+--- !u!114 &8650957294311377923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3689457561885173253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fc3bc7b0e99f4bb2a2381a12dbbee0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerNum: 0

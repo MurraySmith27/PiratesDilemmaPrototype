@@ -61,6 +61,7 @@ public class GoldController : MonoBehaviour
             //Check if close enough to gold pile
             if ((this.transform.position - goldPile.transform.position).magnitude < 50)
             {
+                GetComponent<AudioSource>().Play();
                 goldCarried += 5;
 
                 SpawnGoldAsChild();

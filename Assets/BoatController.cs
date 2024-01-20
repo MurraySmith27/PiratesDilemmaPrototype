@@ -72,6 +72,7 @@ public float timeToLive;
 
     IEnumerator SinkAnimation()
     {
+        GetComponents<AudioSource>()[0].Play();
         Vector3 destination = transform.position - new Vector3(0, BoatRespawnHeight, 0);
         
         while (true)
@@ -99,11 +100,12 @@ public float timeToLive;
 
     IEnumerator SailBoatAnimation()
     {
+        GetComponents<AudioSource>()[1].Play();
         Vector3 destination = transform.position - new Vector3(BoatRespawnLength, 0, 0);
         
         while (true)
         {
-            transform.Translate(new Vector3(-1, 0, 0) * Time.deltaTime);
+            transform.Translate(new Vector3(-10, 0, 0) * Time.deltaTime);
             yield return null;
         }
     }

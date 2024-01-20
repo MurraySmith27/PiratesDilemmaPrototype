@@ -9,6 +9,8 @@ public class BoatController : MonoBehaviour
 
     private Coroutine coroutine;
 
+    public ScoreController scoreController;
+
     // private Transform m_boatTransform;
     private const float BoatRespawnHeight = 3f;
     private const float BoatRespawnLength = -10f;
@@ -41,6 +43,7 @@ public float timeToLive;
 
     public void AddGold(int goldCapacity, int playerNumber)
     {
+        Debug.Log($"adding {goldCapacity} gold to player {playerNumber} on boat {boatSlot}");
         boatCurrentCapacity += goldCapacity;
         if (boatCurrentCapacity > boatTotalCapacity){
             StopCoroutine(coroutine);
@@ -90,7 +93,7 @@ public float timeToLive;
 
         for (int i = 0; i < 4; i++)
         {
-            ScoreController.Instance.playerScores[i] += m_playerCapacity[i];
+            scoreController.playerScores[i] += m_playerCapacity[i];
         }
     }
 

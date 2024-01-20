@@ -9,7 +9,7 @@ public class GlobalState : MonoBehaviour
 
     [SerializeField] private List<GameObject> playerSpawnPositions;
     
-    public static GlobalState Instance;
+    public static GlobalState Instance = null;
 
     public List<GameObject> players;
 
@@ -17,10 +17,12 @@ public class GlobalState : MonoBehaviour
 
     void Awake()
     {
-        if (!GlobalState.Instance)
+        if (GlobalState.Instance == null)
         {
-            GlobalState.Instance = this;
+            Instance = this;
         }
+        
+        numPlayers = 0;
 
         for (int i = 0; i < 4; i++)
         {
@@ -36,6 +38,6 @@ public class GlobalState : MonoBehaviour
 
         newPlayer.GetComponent<PlayerData>().playerNum = playerNum;
         
-        numPlayers++;
+        numPlayers = numPlayers + 1;
     }
 }

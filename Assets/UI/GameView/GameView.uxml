@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<engine:UXML
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:engine="UnityEngine.UIElements"
-    xmlns:editor="UnityEditor.UIElements"
-    xsi:noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd"
->
-    
-</engine:UXML>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="GlobalTimer" style="align-items: stretch; align-self: center; height: 46px; width: 84px; font-size: 28px; color: rgb(220, 193, 193); -unity-font-style: bold;" />
+    <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BoatTimerTitle" style="align-items: stretch; align-self: flex-start; height: 46px; width: 152px; font-size: 28px; color: rgb(220, 193, 193); -unity-text-align: upper-left; -unity-font-style: bold;" />
+    <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PlayerLeaderBoard" style="align-items: stretch; align-self: flex-end; height: 45px; width: 241px; font-size: 28px; color: rgb(220, 193, 193); -unity-text-align: upper-left; -unity-font-style: bold;" />
+    <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BoatTimer1" style="align-items: stretch; align-self: flex-start; height: 46px; width: 152px; font-size: 28px; color: rgb(220, 193, 193); -unity-text-align: upper-left; -unity-font-style: bold;" />
+    <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BoatTimer2" style="align-items: stretch; align-self: flex-start; height: 46px; width: 152px; font-size: 28px; color: rgb(220, 193, 193); -unity-text-align: upper-left; -unity-font-style: bold;" />
+    <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BoatTimer3" style="align-items: stretch; align-self: flex-start; height: 46px; width: 152px; font-size: 28px; color: rgb(220, 193, 193); -unity-text-align: upper-left; -unity-font-style: bold;" />
+    <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BoatTimer4" style="align-items: stretch; align-self: flex-start; height: 46px; width: 152px; font-size: 28px; color: rgb(220, 193, 193); -unity-text-align: upper-left; -unity-font-style: bold;" />
+    <ui:ListView focusable="true" name="LeaderBoardList" />
+</ui:UXML>

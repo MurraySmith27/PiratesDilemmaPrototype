@@ -20,7 +20,12 @@ public class GlobalState : MonoBehaviour
         if (!GlobalState.Instance)
         {
             GlobalState.Instance = this;
-        }    
+        }
+
+        for (int i = 0; i < 4; i++)
+        {
+            AddPlayer();
+        }
     }
 
 

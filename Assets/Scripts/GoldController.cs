@@ -8,14 +8,15 @@ public class GoldController : MonoBehaviour
     // Start is called before the first frame update
     
     //Game Objects
-    public GameObject goldPile;
-    public GameObject[] boats;
+    private GameObject goldPile;
+    private GameObject[] boats;
+
+    public GameObject goldToSpawn;
     
     //Player Actions
-    public InputAction pickupGold;
-    public InputAction dropGold;
+    public List<InputAction> pickupGold;
 
-    public int goldCarried = 0;
+    private int goldCarried = 0;
     void Start()
     {   //Finding GameObjects
         if (goldPile == null)
@@ -29,8 +30,13 @@ public class GoldController : MonoBehaviour
         }
         
         //Assigning Callbacks
-        pickupGold.performed += ctx => { OnPickupGold(ctx); };
-        dropGold.performed += ctx => { OnDropGold(ctx); };
+
+        for (int i = 0; i < pickupGold.Count; i++)
+        {
+            pickupGold[i].performed += ctx => { OnPickupGold(ctx); };
+            pickupGold[i].performed += ctx => { OnDropGold(ctx); };
+        }
+        
         
     }
     
@@ -43,19 +49,28 @@ public class GoldController : MonoBehaviour
 
     public void OnPickupGold(InputAction.CallbackContext ctx)
     {
-        //Check if close enough to gold pile
-        if ((this.transform.position - goldPile.transform.position).magnitude < 10)
+        if (goldCarried == 0)
         {
-            goldCarried += 5;
-            
+            //Check if close enough to gold pile
+            if ((this.transform.position - goldPile.transform.position).magnitude < 10)
+            {
+                goldCarried += 5;
+
+                SpawnGoldAsChild();
+
+            }
         }
     }
     public void OnDropGold(InputAction.CallbackContext ctx)
     {
-        GameObject boat = MaybeFindNearestBoat();
-        if (boat)
+        if (goldCarried != 0)
         {
-            boat.GetComponent<BoatController>().AddGold(goldCarried, GetComponent<PlayerData>().playerNum);
+            GameObject boat = MaybeFindNearestBoat();
+            if (boat)
+            {
+                //boat.GetComponent<BoatController>().AddGold(goldCarried, GetComponent<PlayerData>().playerNum);
+                goldCarried -= 5;
+            }
         }
     }
 
@@ -75,5 +90,15 @@ public class GoldController : MonoBehaviour
         }
         
         return nearestBoat;
+    }
+    
+    void SpawnGoldAsChild()
+    {
+        // Instantiate objectToSpawn as a child of this.transform
+        GameObject spawnedObject = Instantiate(goldToSpawn, this.transform.position, this.transform.rotation, this.transform);
+
+        // Optionally, set the local position and rotation of the spawned object relative to the parent
+        spawnedObject.transform.localPosition = Vector3.forward * 2; // Set to zero if you want it to be at the parent's position
+        spawnedObject.transform.localRotation = Quaternion.identity; // Set to identity if you want it to have the parent's rotation
     }
 }

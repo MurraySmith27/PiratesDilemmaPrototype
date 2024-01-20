@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 2649316822951273038}
   - component: {fileID: 6195372713693956684}
   - component: {fileID: 2071139225296049069}
-  - component: {fileID: 1131760024841306520}
-  - component: {fileID: 144912081523471964}
+  - component: {fileID: 7256598517620074636}
+  - component: {fileID: 8968663787368205546}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -109,7 +109,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1131760024841306520
+--- !u!114 &7256598517620074636
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,10 +118,172 @@ MonoBehaviour:
   m_GameObject: {fileID: 3689457561885173253}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3cef2c7d32e942ceaa05577d2e59845, type: 3}
+  m_Script: {fileID: 11500000, guid: 010304777bd9d764f8d09acebc0df2e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &144912081523471964
+  speed: 0.01
+  moveActionsPerPlayer:
+  - m_Name: Element 0
+    m_Type: 0
+    m_ExpectedControlType: Vector2
+    m_Id: 55164305-f839-41b2-8133-725f1c65eba5
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 2D Vector
+      m_Id: ccaa06d7-c05b-4dd5-8adb-a0531f76d3a5
+      m_Path: 2DVector
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Element 0
+      m_Flags: 4
+    - m_Name: up
+      m_Id: d68a8559-edef-42d8-905a-54eb6f4e80d2
+      m_Path: <Keyboard>/w
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Element 0
+      m_Flags: 8
+    - m_Name: down
+      m_Id: 1f10bbeb-0f4e-4559-9375-90452cc6981b
+      m_Path: <Keyboard>/s
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Element 0
+      m_Flags: 8
+    - m_Name: left
+      m_Id: 7098cd07-0b40-43c2-9ebf-5efdfc742773
+      m_Path: <Keyboard>/a
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Element 0
+      m_Flags: 8
+    - m_Name: right
+      m_Id: 67740d39-8b1e-4c06-8207-f02d76303256
+      m_Path: <Keyboard>/d
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Element 0
+      m_Flags: 8
+    m_Flags: 0
+  - m_Name: Element 1
+    m_Type: 0
+    m_ExpectedControlType: Vector2
+    m_Id: a29db0dd-25da-416e-a036-ae79d273b0f7
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 94b72b9c-9804-4fe0-ab23-b99748d77bb7
+      m_Path: <SwitchProControllerHID>/leftStick
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Element 1
+      m_Flags: 0
+    m_Flags: 0
+  - m_Name: Element 2
+    m_Type: 0
+    m_ExpectedControlType: Vector2
+    m_Id: df9dae9e-befe-4f43-90a1-ca32eebd9301
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 2D Vector
+      m_Id: 80fa9e02-5e9a-438c-a697-a7f07924fed6
+      m_Path: 2DVector
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Element 2
+      m_Flags: 4
+    - m_Name: up
+      m_Id: edc5d29b-6f2b-4781-9da3-26be4164110d
+      m_Path: <Keyboard>/i
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Element 2
+      m_Flags: 8
+    - m_Name: down
+      m_Id: 90b56fb2-00d5-4363-ade4-ada78cc292d4
+      m_Path: <Keyboard>/k
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Element 2
+      m_Flags: 8
+    - m_Name: left
+      m_Id: bd4a6d9b-6dc5-407a-ac8a-222bd5e9a0f6
+      m_Path: <Keyboard>/j
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Element 2
+      m_Flags: 8
+    - m_Name: right
+      m_Id: 5f498593-1f9b-40fb-993f-d7fdce9b26e8
+      m_Path: <Keyboard>/l
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Element 2
+      m_Flags: 8
+    m_Flags: 0
+  - m_Name: Element 3
+    m_Type: 0
+    m_ExpectedControlType: Vector2
+    m_Id: 803bf78b-4d7c-4a83-982b-eef75024d5b0
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 2D Vector
+      m_Id: 1dcfee13-34e3-42df-9806-890be24d20d8
+      m_Path: 2DVector
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Element 3
+      m_Flags: 4
+    - m_Name: up
+      m_Id: 78c3599b-ec66-42e8-9361-af23d0548785
+      m_Path: <Keyboard>/upArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Element 3
+      m_Flags: 8
+    - m_Name: down
+      m_Id: 0be5727f-be71-444d-82cf-60239ad41aee
+      m_Path: <Keyboard>/downArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Element 3
+      m_Flags: 8
+    - m_Name: left
+      m_Id: 9e058219-3544-4e44-bb11-3f3f11f5a491
+      m_Path: <Keyboard>/leftArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Element 3
+      m_Flags: 8
+    - m_Name: right
+      m_Id: 5821a0c1-eb48-4b55-994a-112378cbd012
+      m_Path: <Keyboard>/rightArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Element 3
+      m_Flags: 8
+    m_Flags: 0
+--- !u!114 &8968663787368205546
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,3 +295,69 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95dc1ac2d0ae44b378b892b97ce79b49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goldToSpawn: {fileID: 0}
+  pickupGold:
+  - m_Name: Element 0
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 9746083a-773c-4391-868b-2cf1244a02ec
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 9e85b0e3-7baa-42a0-a3cc-db2c72c870fc
+      m_Path: <Keyboard>/e
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Element 0
+      m_Flags: 0
+    m_Flags: 0
+  - m_Name: Input Action
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: be84c30b-4f1a-4866-9b96-b75ec3a6b710
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: f41764b1-159d-469e-bb72-a4c3c5afec6c
+      m_Path: <SwitchProControllerHID>/buttonEast
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Input Action
+      m_Flags: 0
+    m_Flags: 0
+  - m_Name: Input Action
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 834d6349-ea97-4049-bc12-78c6cdeda813
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 9eb213b8-8550-4425-afa1-92ac4d9a915e
+      m_Path: <Keyboard>/o
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Input Action
+      m_Flags: 0
+    m_Flags: 0
+  - m_Name: Input Action
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: fb13e46a-82b2-44d1-9d2d-45e18d31f02b
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 6e588ee7-919e-4e7f-82c7-6ed204f77650
+      m_Path: <Keyboard>/ctrl
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Input Action
+      m_Flags: 0
+    m_Flags: 0

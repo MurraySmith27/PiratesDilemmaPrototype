@@ -6,26 +6,23 @@ using UnityEngine.UIElements;
 public class ScoreController : MonoBehaviour
 {
 
-    public UIDocument doc;
-    
-    public static ScoreController Instance;
+    public GlobalState globalState;
+
+    public static ScoreController Instance = null;
 
     public List<int> playerScores;
 
     void Awake()
     {
 
-        var label =doc.rootVisualElement.Q<Label>("main-text");
-
-        label.text = "blah";
-        if (!ScoreController.Instance)
+        if (ScoreController.Instance == null)
         {
-            ScoreController.Instance = this;
+            Instance = this;
         }
         
         playerScores = new List<int>();
-
-        for (int i = 0; i < GlobalState.Instance.numPlayers; i++)
+        Debug.Log($"global state instance: {GlobalState.Instance}");
+        for (int i = 0; i < globalState.numPlayers; i++)
         {
             playerScores.Add(0);
         }

@@ -9,18 +9,20 @@ public class GlobalState : MonoBehaviour
 
     [SerializeField] private List<GameObject> playerSpawnPositions;
     
-    public static GlobalState Instance;
+    public static GlobalState Instance = null;
 
     public List<GameObject> players;
 
-    public int numPlayers;
+    public int numPlayers = 0;
 
     void Awake()
     {
-        if (!GlobalState.Instance)
+        if (GlobalState.Instance == null)
         {
-            GlobalState.Instance = this;
+            Instance = this;
         }
+        
+        numPlayers = 0;
 
         for (int i = 0; i < 4; i++)
         {
@@ -31,11 +33,11 @@ public class GlobalState : MonoBehaviour
 
     public void AddPlayer()
     {
-        int playerNum = numPlayers + 1;
+        int playerNum = numPlayers;
         GameObject newPlayer = Instantiate(playerPrefab, playerSpawnPositions[playerNum].transform.position, Quaternion.identity);
 
         newPlayer.GetComponent<PlayerData>().playerNum = playerNum;
         
-        numPlayers++;
+        numPlayers = numPlayers + 1;
     }
 }

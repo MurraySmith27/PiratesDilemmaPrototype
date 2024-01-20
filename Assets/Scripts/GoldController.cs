@@ -11,6 +11,8 @@ public class GoldController : MonoBehaviour
     private GameObject goldPile;
     private GameObject[] boats;
 
+    private GameObject spawnedGold;
+
     public GameObject goldToSpawn;
     
     //Player Actions
@@ -33,8 +35,12 @@ public class GoldController : MonoBehaviour
 
         for (int i = 0; i < pickupGold.Count; i++)
         {
-            pickupGold[i].performed += ctx => { OnPickupGold(ctx); };
-            pickupGold[i].performed += ctx => { OnDropGold(ctx); };
+            if (i == GetComponent<PlayerData>().playerNum)
+            {
+                pickupGold[i].performed += ctx =>
+                { OnPickupGold(ctx); };
+                pickupGold[i].performed += ctx => { OnDropGold(ctx); };
+            }
         }
         
         
@@ -51,8 +57,9 @@ public class GoldController : MonoBehaviour
     {
         if (goldCarried == 0)
         {
+
             //Check if close enough to gold pile
-            if ((this.transform.position - goldPile.transform.position).magnitude < 10)
+            if ((this.transform.position - goldPile.transform.position).magnitude < 50)
             {
                 goldCarried += 5;
 
@@ -65,11 +72,15 @@ public class GoldController : MonoBehaviour
     {
         if (goldCarried != 0)
         {
+            Debug.Log("dropping off! gold!");
             GameObject boat = MaybeFindNearestBoat();
             if (boat)
             {
-                //boat.GetComponent<BoatController>().AddGold(goldCarried, GetComponent<PlayerData>().playerNum);
+                Debug.Log("found boat!");
+                Destroy(spawnedGold);
+                boat.GetComponent<BoatController>().AddGold(goldCarried, GetComponent<PlayerData>().playerNum);
                 goldCarried -= 5;
+                
             }
         }
     }
@@ -95,10 +106,26 @@ public class GoldController : MonoBehaviour
     void SpawnGoldAsChild()
     {
         // Instantiate objectToSpawn as a child of this.transform
-        GameObject spawnedObject = Instantiate(goldToSpawn, this.transform.position, this.transform.rotation, this.transform);
+        spawnedGold = Instantiate(goldToSpawn, this.transform.position, this.transform.rotation, this.transform);
 
         // Optionally, set the local position and rotation of the spawned object relative to the parent
-        spawnedObject.transform.localPosition = Vector3.forward * 2; // Set to zero if you want it to be at the parent's position
-        spawnedObject.transform.localRotation = Quaternion.identity; // Set to identity if you want it to have the parent's rotation
+        spawnedGold.transform.localPosition = Vector3.forward * 2; // Set to zero if you want it to be at the parent's position
+        spawnedGold.transform.localRotation = Quaternion.identity; // Set to identity if you want it to have the parent's rotation
+    }
+
+    public void OnEnable()
+    {
+        foreach (InputAction x in pickupGold)
+        {
+            x.Enable();
+        }
+    }
+
+    public void OnDisable()
+    {
+        foreach (InputAction x in pickupGold)
+        {
+            x.Disable();
+        }
     }
 }

@@ -9,8 +9,6 @@ public class GoldController : MonoBehaviour
     
     //Game Objects
     private GameObject goldPile;
-    private GameObject[] boats;
-
     private GameObject spawnedGold;
 
     public GameObject goldToSpawn;
@@ -24,11 +22,6 @@ public class GoldController : MonoBehaviour
         if (goldPile == null)
         {
             goldPile = GameObject.FindGameObjectWithTag("GoldPile");
-        }
-
-        if (boats == null)
-        {
-            boats = GameObject.FindGameObjectsWithTag("Boat");
         }
         
         //Assigning Callbacks
@@ -73,11 +66,9 @@ public class GoldController : MonoBehaviour
     {
         if (goldCarried != 0)
         {
-            Debug.Log("dropping off! gold!");
             GameObject boat = MaybeFindNearestBoat();
             if (boat)
             {
-                Debug.Log("found boat!");
                 Destroy(spawnedGold);
                 boat.GetComponent<BoatController>().AddGold(goldCarried, GetComponent<PlayerData>().playerNum);
                 goldCarried -= 5;
@@ -90,7 +81,7 @@ public class GoldController : MonoBehaviour
     {
         GameObject nearestBoat = null;
 
-        foreach (GameObject boat in boats)
+        foreach (GameObject boat in GameObject.FindGameObjectsWithTag("Boat"))
         {
             if ((!nearestBoat && (this.transform.position - boat.transform.position).magnitude < 10) ||
                 nearestBoat && 

@@ -8,9 +8,7 @@ public class BoatController : MonoBehaviour
     public BoatSpawner boatSpawner;
 
     private Coroutine coroutine;
-
-    public ScoreController scoreController;
-
+    
     // private Transform m_boatTransform;
     private const float BoatRespawnHeight = 3f;
     private const float BoatRespawnLength = -10f;
@@ -20,8 +18,7 @@ public class BoatController : MonoBehaviour
     public int boatCurrentCapacity;
     private int[] m_playerCapacity = {0, 0, 0, 0 };
 
-public float timeToLive;
-    public int[] LivingBoats = {0, 0, 0, 0};
+    public float timeToLive;
 
     public int boatSlot;
 
@@ -52,12 +49,6 @@ public float timeToLive;
         m_playerCapacity[playerNumber] += goldCapacity;
     }
 
-    // private void CalculateCapacity()
-    // {
-    //     if (boatCurrentCapacity > boatTotalCapacity){
-    //         SinkBoat();
-    //     }
-    // }
 
     IEnumerator SinkBoat()
     {
@@ -65,9 +56,8 @@ public float timeToLive;
 
         yield return new WaitForSeconds(BoatRespawnTime);
         StopCoroutine(coroutine);
-        boatSpawner.RespawnBoat(LivingBoats, boatSlot);
-        Destroy(this);
-        LivingBoats[boatSlot] = 0;
+        boatSpawner.RespawnBoat(boatSlot);
+        Destroy(this.gameObject);
     }
 
     IEnumerator SinkAnimation()
@@ -77,7 +67,7 @@ public float timeToLive;
         
         while (true)
         {
-            transform.Translate(new Vector3(0, 1, 0) * Time.deltaTime);
+            transform.Translate(new Vector3(0, -50, 0) * Time.deltaTime);
             yield return null;
         }
     }
@@ -88,13 +78,12 @@ public float timeToLive;
 
         yield return new WaitForSeconds(BoatRespawnTime);
         StopCoroutine(coroutine);
-        boatSpawner.RespawnBoat(LivingBoats, boatSlot);
-        Destroy(this);
-        LivingBoats[boatSlot] = 0;
+        boatSpawner.RespawnBoat(boatSlot);
+        Destroy(this.gameObject);
 
         for (int i = 0; i < 4; i++)
         {
-            scoreController.playerScores[i] += m_playerCapacity[i];
+            ScoreController.Instance.playerScores[i] += m_playerCapacity[i];
         }
     }
 

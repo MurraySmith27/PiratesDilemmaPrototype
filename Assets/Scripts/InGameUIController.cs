@@ -14,11 +14,8 @@ public class InGameUIController : MonoBehaviour
     private Label boatTimerTitleLabel;
     private Label leaderBoardLabel;
 
-    private Label boatTimer1;
-        private Label boatTimer2;
-            private Label boatTimer3;
-                private Label boatTimer4;
-
+    private List<Label> boatTimers;
+    
     private Label toBeUpdatedBoatLabel;
 
     void Start()
@@ -28,24 +25,35 @@ public class InGameUIController : MonoBehaviour
         globalTimerLabel = root.Q<Label>("GlobalTimer");
         boatTimerTitleLabel = root.Q<Label>("BoatTimerTitle");
         leaderBoardLabel = root.Q<Label>("PlayerLeaderBoard");
-
-        boatTimer1 = root.Q<Label>("BoatTimer1");
-        boatTimer2 = root.Q<Label>("BoatTimer2");
-        boatTimer3 = root.Q<Label>("BoatTimer3");
-        boatTimer4 = root.Q<Label>("BoatTimer4");
+        
+        boatTimers = new List<Label>();
+        boatTimers.Add(root.Q<Label>("BoatTimer1"));
+        boatTimers.Add(root.Q<Label>("BoatTimer2"));
+        boatTimers.Add(root.Q<Label>("BoatTimer3"));
+        boatTimers.Add(root.Q<Label>("BoatTimer4"));
+        
 
         boatTimerTitleLabel.text = "BOAT TIMERS:";
         leaderBoardLabel.text = "LEADERBOARD";
 
         StartCoroutine(GlobalCountdown(120));
 
-        StartCoroutine(Boat1CountDown());
-
-        StartCoroutine(Boat2CountDown());
-
-        StartCoroutine(Boat3CountDown());
-
-        StartCoroutine(Boat4CountDown());
+        GameObject[] boats = GameObject.FindGameObjectsWithTag("Boat");
+        
+        Debug.Log($"num players: {GlobalState.Instance.numPlayers}");
+        for (int i = 0; i < GlobalState.Instance.numPlayers; i++)
+        {
+            int countDown = 0;
+            for (int j = 0; j < GlobalState.Instance.numPlayers; j++)
+            {
+                BoatController boatController = boats[j].GetComponent<BoatController>();
+                if (boatController.boatSlot == i)
+                {
+                    countDown = (int)boatController.timeToLive;
+                }
+            }
+            StartCoroutine(BoatCountDown(i, countDown));
+        }
     }
 
     IEnumerator GlobalCountdown(int seconds)
@@ -68,14 +76,14 @@ public class InGameUIController : MonoBehaviour
         globalTimerLabel.text = "Time's up!";
     }
     
-    IEnumerator Boat1CountDown()
+    IEnumerator BoatCountDown(int boatNum, int initialCount)
     {
-        int count = 30;
+        int count = initialCount;
 
         while (count > 0)
         {
             // Update the UI
-            boatTimer1.text = "Boat 1" + ": " +  count.ToString();
+            boatTimers[boatNum].text = $"Boat {boatNum}" + ": " +  count.ToString();
 
             // Wait for one second
             yield return new WaitForSeconds(1);
@@ -85,73 +93,6 @@ public class InGameUIController : MonoBehaviour
         }
 
         // Countdown finished
-        boatTimer1.text = "Time's up!";
+        boatTimers[boatNum].text = "Time's up!";
     }
-
-    IEnumerator Boat2CountDown()
-    {
-        int count = 30;
-
-        while (count > 0)
-        {
-            // Update the UI
-            boatTimer2.text = "Boat 2"+ ": " +  count.ToString();
-
-            // Wait for one second
-            yield return new WaitForSeconds(1);
-
-            // Decrease the count
-            count--;
-        }
-
-        // Countdown finished
-        boatTimer2.text = "Time's up!";
-    }
-
-    IEnumerator Boat3CountDown()
-    {
-        int count = 30;
-
-        while (count > 0)
-        {
-            // Update the UI
-            boatTimer3.text = "Boat 3"+ ": " +  count.ToString();
-
-            // Wait for one second
-            yield return new WaitForSeconds(1);
-
-            // Decrease the count
-            count--;
-        }
-
-        // Countdown finished
-        boatTimer3.text = "Time's up!";
-    }
-
-    IEnumerator Boat4CountDown()
-    {
-        int count = 30;
-
-        while (count > 0)
-        {
-            // Update the UI
-            boatTimer4.text = "Boat 4"+ ": " +  count.ToString();
-
-            // Wait for one second
-            yield return new WaitForSeconds(1);
-
-            // Decrease the count
-            count--;
-        }
-
-        // Countdown finished
-        boatTimer4.text = "Time's up!";
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    
 }

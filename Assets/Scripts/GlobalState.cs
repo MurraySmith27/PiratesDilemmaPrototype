@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class GlobalState : MonoBehaviour
 {
+    private static GlobalState _instance;
+    public static GlobalState Instance
+    {
+        get { return _instance; }
+    }
 
     [SerializeField] private GameObject playerPrefab;
 
     [SerializeField] private List<GameObject> playerSpawnPositions;
     
-    public static GlobalState Instance = null;
 
     public List<GameObject> players;
 
@@ -17,9 +21,13 @@ public class GlobalState : MonoBehaviour
 
     void Awake()
     {
-        if (GlobalState.Instance == null)
+        if (_instance != null && _instance != this)
         {
-            Instance = this;
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
         }
         
         numPlayers = 0;

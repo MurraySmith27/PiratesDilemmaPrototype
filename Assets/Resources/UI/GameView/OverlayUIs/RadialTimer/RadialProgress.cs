@@ -8,6 +8,7 @@ namespace MyUILibrary
     // An element that displays progress inside a partially filled circle
     public class RadialProgress : VisualElement
     {
+        public int maxTotalProgress;
         public new class UxmlTraits : VisualElement.UxmlTraits
         {
             // The progress property is exposed to UXML.
@@ -60,7 +61,7 @@ namespace MyUILibrary
                 // Whenever the progress property changes, MarkDirtyRepaint() is named. This causes a call to the
                 // generateVisualContents callback.
                 m_Progress = value;
-                m_Label.text = Mathf.Clamp(Mathf.Round(value), 0, 100) + "%";
+                m_Label.text = Mathf.Round(value) + "s";
                 MarkDirtyRepaint();
             }
         }
@@ -148,10 +149,10 @@ namespace MyUILibrary
             trackMeshWriteData.SetAllIndices(m_TrackMesh.indices);
 
             // Keep progress between 0 and 100
-            float clampedProgress = Mathf.Clamp(m_Progress, 0.0f, 100.0f);
+            float clampedProgress = Mathf.Clamp(m_Progress, 0.0f, maxTotalProgress);
 
             // Determine how many triangles are used to depending on progress, to achieve a partially filled circle
-            int sliceSize = Mathf.FloorToInt((k_NumSteps * clampedProgress) / 100.0f);
+            int sliceSize = Mathf.FloorToInt((k_NumSteps * clampedProgress) / maxTotalProgress);
 
             if (sliceSize == 0)
                 return;

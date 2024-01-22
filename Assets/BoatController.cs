@@ -1,10 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 public delegate void DeleteBoatCallback(int boatNum);
 
 public delegate void SpawnBoatCallback(int boatNum);
+
+public delegate void GoldAddedCallback(int boatNum, int goldTotal, int capacity);
 
 public class BoatController : MonoBehaviour
 {
@@ -20,10 +23,11 @@ public class BoatController : MonoBehaviour
     private const float BoatRespawnTime = 5f;
     public int boatTotalCapacity;
     public int boatCurrentCapacity;
-    private int[] m_playerCapacity = {0, 0, 0, 0 };
+    public int[] m_playerCapacity = {0, 0, 0, 0 };
 
     public DeleteBoatCallback OnDeleteBoat;
     public static SpawnBoatCallback OnSpawnBoat;
+    public static GoldAddedCallback OnAddGold;
     
     public int timeToLive;
 
@@ -53,6 +57,8 @@ public class BoatController : MonoBehaviour
             StartCoroutine(SinkBoat());
         }
         m_playerCapacity[playerNumber] += goldCapacity;
+        
+        OnAddGold(boatSlot, m_playerCapacity.Sum(), boatTotalCapacity);
     }
 
 

@@ -371,6 +371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c66674c043f649db84a81c22ad4e3cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boats: []
 --- !u!114 &570230914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -385,7 +386,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PanelSettings: {fileID: 11400000, guid: efe21db9368734e70aa3ddd342c448f9, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 8d578a182f5c24b6ca34c4d8514ce57d, type: 3}
+  sourceAsset: {fileID: 0}
   m_SortingOrder: 0
 --- !u!4 &570230915
 Transform:

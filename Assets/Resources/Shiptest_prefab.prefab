@@ -48,11 +48,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boatSpawner: {fileID: 0}
-  scoreController: {fileID: 0}
   boatTotalCapacity: 0
   boatCurrentCapacity: 0
+  m_playerCapacity: 00000000000000000000000000000000
   timeToLive: 0
-  LivingBoats: 00000000000000000000000000000000
   boatSlot: 0
 --- !u!82 &3036808960546493337
 AudioSource:
@@ -299,7 +298,8 @@ PrefabInstance:
       value: Shiptest
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: -8700617353114198275, guid: 207981ef4be34d84ba5680de8b235b87, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 207981ef4be34d84ba5680de8b235b87, type: 3}

@@ -16,7 +16,7 @@ public class GoldController : MonoBehaviour
     //Player Actions
     public List<InputAction> pickupGold;
 
-    private int goldCarried = 0;
+    public int goldCarried = 0;
     void Start()
     {   //Finding GameObjects
         if (goldPile == null)
@@ -55,7 +55,7 @@ public class GoldController : MonoBehaviour
             if ((this.transform.position - goldPile.transform.position).magnitude < 50)
             {
                 GetComponent<AudioSource>().Play();
-                goldCarried += 5;
+                goldCarried += 15;
 
                 SpawnGoldAsChild();
 
@@ -71,7 +71,7 @@ public class GoldController : MonoBehaviour
             {
                 Destroy(spawnedGold);
                 boat.GetComponent<BoatController>().AddGold(goldCarried, GetComponent<PlayerData>().playerNum);
-                goldCarried -= 5;
+                goldCarried -= 15;
                 
             }
         }

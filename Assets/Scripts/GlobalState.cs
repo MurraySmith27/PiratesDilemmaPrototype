@@ -34,18 +34,24 @@ public class GlobalState : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
         {
-            AddPlayer();
+            AddPlayer(i);
         }
     }
 
 
-    public void AddPlayer()
+    public void AddPlayer(int i)
     {
         int playerNum = numPlayers;
         GameObject newPlayer = Instantiate(playerPrefab, playerSpawnPositions[playerNum].transform.position, Quaternion.identity);
 
         newPlayer.GetComponent<PlayerData>().playerNum = playerNum;
-        
+        newPlayer.GetComponent<MeshRenderer>().material.color = GetPlayerColor(i);
         numPlayers = numPlayers + 1;
+    }
+    Color GetPlayerColor(int playerNumber)
+    {
+        Color[] colors = new Color[] { Color.red, Color.blue, Color.green, Color.yellow}; // Add more colors as needed.
+        // Use the modulo operator to cycle through colors if there are more players than colors.
+        return colors[playerNumber % colors.Length];
     }
 }

@@ -72,7 +72,8 @@ public class GoldController : MonoBehaviour
         if (goldCarried != 0)
         {
             GameObject boat = MaybeFindNearestBoat();
-            if (boat)
+            
+            if (boat && boat.GetComponent<BoatController>().acceptingGold)
             {
                 Destroy(spawnedGold);
                 goldPrefabSpawned = false;

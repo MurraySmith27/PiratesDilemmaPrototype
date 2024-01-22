@@ -117,21 +117,15 @@ public class CreateOverlays : MonoBehaviour
             {
                 Vector3 screen = Camera.main.WorldToScreenPoint(boats[boatNum].transform.position);
                 boatElements[boatNum].style.left =
-                    screen.x;// - (boatElements[boatNum].Q<RadialProgress>("radial-timer").layout.width / 2);
-                boatElements[boatNum].style.top = (Screen.height - screen.y);
+                    screen.x - (boatElements[boatNum].Q<RadialProgress>("radial-timer").layout.width / 2) + 50;
+                boatElements[boatNum].style.top = (Screen.height - screen.y) - 50;
 
                 BoatController boatController = boats[boatNum].GetComponent<BoatController>();
                 timerElement.progress = boatController.timeToLive;
 
                 capacityLabel.text = currentBoatLabels[boatNum];
-                if (boatNum == 0)
-                {
-                    Debug.Log($"point on screen: {screen}, screen size: {Screen.width}, {Screen.height}");
-                    Debug.Log($"root dimensions: {root.resolvedStyle.width}, {root.resolvedStyle.height}");
-                    Debug.Log($"unresolved position of hovering label: {boatElements[boatNum].style.left}, {boatElements[boatNum].style.top}");
-                    Debug.Log($"end position of hovering label: {boatElements[boatNum].resolvedStyle.left}, {boatElements[boatNum].resolvedStyle.top}");
-                }
             }
+            
             yield return null;
         }
     }

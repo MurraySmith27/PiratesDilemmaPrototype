@@ -25,6 +25,8 @@ public class BoatController : MonoBehaviour
     public int boatCurrentCapacity;
     public int[] m_playerCapacity = {0, 0, 0, 0 };
 
+    public bool acceptingGold = true;
+
     public DeleteBoatCallback OnDeleteBoat;
     public static SpawnBoatCallback OnSpawnBoat;
     public static GoldAddedCallback OnAddGold;
@@ -64,6 +66,7 @@ public class BoatController : MonoBehaviour
 
     IEnumerator SinkBoat()
     {
+        acceptingGold = false;
         OnDeleteBoat(boatSlot);
         var c = StartCoroutine(SinkAnimation());
 
@@ -91,6 +94,7 @@ public class BoatController : MonoBehaviour
 
     IEnumerator SailBoat()
     {
+        acceptingGold = false;
         OnDeleteBoat(boatSlot);
         var c = StartCoroutine(SailBoatAnimation());
 

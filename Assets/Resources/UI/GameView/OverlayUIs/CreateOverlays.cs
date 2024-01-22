@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using MyUILibrary;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -132,11 +133,34 @@ public class CreateOverlays : MonoBehaviour
     {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
-        GoldController[] goldControllers = Array.ForEach<GameObject>(players, obj => { });
+        GoldController[] goldControllers = players.Select(obj => { return obj.GetComponent<GoldController>(); }).ToArray();
+
+        Label[] playerUILabels = new Label[4];
 
         for (int i = 0; i < GlobalState.Instance.numPlayers; i++)
         {
             playerElements[i] = playerUIAsset.Instantiate();
+            root.Add(playerElements[i]);
+
+            playerUILabels[i] = playerElements[i].Q<Label>("gold-count");
+            currentPlayerLabels[i] = "0";
+        }
+
+
+        while (true)
+        {
+            for (int i = 0; i < GlobalState.Instance.numPlayers; i++)
+            {
+                Vector3 screen = Camera.main.WorldToScreenPoint(players[i].transform.position);
+                playerElements[i].style.left =
+                    screen.x - (playerElements[i].layout.width / 2);
+                playerElements[i].style.top = (Screen.height - screen.y) - 100;
+
+                currentPlayerLabels[i] = $"{goldControllers[i].goldCarried}";
+                playerUILabels[i].text = currentPlayerLabels[i];
+            }
+
+            yield return null;
         }
         
     } 

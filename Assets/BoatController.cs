@@ -1,9 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 public delegate void DeleteBoatCallback(int boatNum);
 
-public delegate void SpawnBoatCallback(int boatNum);
+public delegate void SpawnBoatCallback(int boatNum, int newBoatGuid);
 
 public class BoatController : MonoBehaviour
 {
@@ -62,10 +63,10 @@ public class BoatController : MonoBehaviour
 
         yield return new WaitForSeconds(BoatRespawnTime);
         StopCoroutine(coroutine);
-        boatSpawner.RespawnBoat(boatSlot);
+        int boatInstanceId = boatSpawner.RespawnBoat(boatSlot);
         Destroy(this.gameObject);
         
-        OnSpawnBoat(boatSlot);
+        OnSpawnBoat(boatSlot, boatInstanceId);
         yield return null;
         
     }
@@ -84,12 +85,13 @@ public class BoatController : MonoBehaviour
 
     IEnumerator SailBoat()
     {
+        Debug.Log($"deleting boat: {boatSlot}");
         OnDeleteBoat(boatSlot);
         var c = StartCoroutine(SailBoatAnimation());
 
         yield return new WaitForSeconds(BoatRespawnTime);
         StopCoroutine(coroutine);
-        boatSpawner.RespawnBoat(boatSlot);
+        int boatInstanceId = boatSpawner.RespawnBoat(boatSlot);
         Destroy(this.gameObject);
         
         for (int i = 0; i < GlobalState.Instance.numPlayers; i++)
@@ -97,10 +99,7 @@ public class BoatController : MonoBehaviour
             ScoreController.Instance.playerScores[i] += m_playerCapacity[i];
         }
         
-        OnSpawnBoat(boatSlot);
-        yield return null;
-        
-
+        OnSpawnBoat(boatSlot, boatInstanceId);
     }
 
     IEnumerator SailBoatAnimation()

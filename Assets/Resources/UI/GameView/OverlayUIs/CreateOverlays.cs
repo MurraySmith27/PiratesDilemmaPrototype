@@ -15,26 +15,23 @@ public class CreateOverlays : MonoBehaviour
 
     public List<VisualElement> boatTimers;
 
+    private List<Coroutine> timerLabelCoroutines;
+
     void Start()
     {
-        boats = new List<GameObject>(GameObject.FindGameObjectsWithTag("Boat"));
+        timerLabelCoroutines = new List<Coroutine>();
 
         BoatController.OnSpawnBoat += NewBoatSpawned;
-        foreach (GameObject boat in boats)
-        {
-            BoatController boatController = boat.GetComponent<BoatController>();
-            boatController.OnDeleteBoat += BoatDeleted;
-        }
         
         root = GetComponent<UIDocument>().rootVisualElement;
 
         timerAsset = Resources.Load<VisualTreeAsset>("UI/GameView/OverlayUIs/RadialProgressBar");
 
         boatTimers = new List<VisualElement>();
+            
         for (int i = 0; i < boats.Count; i++)
         {
-            boatTimers.Add(timerAsset.Instantiate());
-            root.Add(boatTimers[i]);
+            timerLabelCoroutines.Add(StartCoroutine(UpdateUIPositionOfBoatTimer(i)));
         }
     }
 
@@ -43,36 +40,43 @@ public class CreateOverlays : MonoBehaviour
         boatTimers[boatNum].Clear();
         boatTimers[boatNum].RemoveFromHierarchy();
         boatTimers[boatNum] = null;
+        StopCoroutine(timerLabelCoroutines[boatNum]);
     }
 
-    void NewBoatSpawned(int boatNum)
+    void NewBoatSpawned(int boatNum, int boatInstanceId)
     {
-        
-        boats[boatNum] = GameObject.FindGameObjectsWithTag("Boat")
-            .FirstOrDefault(
-                obj => obj.GetComponent<BoatController>().boatSlot == boatNum
-            );
-        
-        Debug.Log($"boat: {boats[boatNum]}");
+        timerLabelCoroutines[boatNum] = StartCoroutine(UpdateUIPositionOfBoatTimer(boatNum));
+    }
 
+    IEnumerator UpdateUIPositionOfBoatTimer(int boatNum)
+    {
+        while (boats[boatNum] == null)
+        {
+            boats[boatNum] = GameObject.FindGameObjectsWithTag("Boat")
+                .FirstOrDefault(obj => obj.GetComponent<BoatController>().boatSlot == boatNum);
+            if (boats[boatNum])
+            {
+                BoatController boatController = boats[boatNum].GetComponent<BoatController>();
+                boatController.OnDeleteBoat += BoatDeleted;
+            }
+            yield return null;
+        }
+        
         boatTimers[boatNum] = timerAsset.Instantiate();
         root.Add(boatTimers[boatNum]);
 
-        BoatController boatController = boats[boatNum].GetComponent<BoatController>();
-        boatController.OnDeleteBoat += BoatDeleted;
-    }
-
-    private void Update()
-    {
-        for (int i = 0; i < boats.Count; i++)
+        while (true)
         {
-            if (boatTimers[i] != null)
+            if (boatTimers[boatNum] != null)
             {
-                Vector3 screen = Camera.main.WorldToScreenPoint(boats[i].transform.position);
-                boatTimers[i].style.left =
-                    screen.x - (boatTimers[i].Q<RadialProgress>("radial-timer").layout.width / 2);
-                boatTimers[i].style.top = (Screen.height - screen.y);
+                Vector3 screen = Camera.main.WorldToScreenPoint(boats[boatNum].transform.position);
+                boatTimers[boatNum].style.left =
+                    screen.x - (boatTimers[boatNum].Q<RadialProgress>("radial-timer").layout.width / 2);
+                boatTimers[boatNum].style.top = (Screen.height - screen.y);
             }
+            yield return null;
         }
+        
+        
     }
 }

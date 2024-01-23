@@ -11,48 +11,48 @@ public class InGameUIController : MonoBehaviour
     // public GameObject leaderBoardObj;
 
     private Label globalTimerLabel;
-    private Label boatTimerTitleLabel;
     private Label leaderBoardLabel;
-
-    private List<Label> boatTimers;
     
     private Label toBeUpdatedBoatLabel;
+
+    private Label[] playerScoreElements;
 
     void Start()
     {
         var root = GetComponent<UIDocument>().rootVisualElement;
 
         globalTimerLabel = root.Q<Label>("GlobalTimer");
-        boatTimerTitleLabel = root.Q<Label>("BoatTimerTitle");
         leaderBoardLabel = root.Q<Label>("PlayerLeaderBoard");
-        
-        boatTimers = new List<Label>();
-        boatTimers.Add(root.Q<Label>("BoatTimer1"));
-        boatTimers.Add(root.Q<Label>("BoatTimer2"));
-        boatTimers.Add(root.Q<Label>("BoatTimer3"));
-        boatTimers.Add(root.Q<Label>("BoatTimer4"));
-        
 
-        boatTimerTitleLabel.text = "BOAT TIMERS:";
-        leaderBoardLabel.text = "LEADERBOARD";
+        playerScoreElements = new Label[4];
+
+        for (int i = 0; i < GlobalState.Instance.numPlayers; i++)
+        {
+            playerScoreElements[i] = root.Q<Label>($"player-{i + 1}-score");
+            playerScoreElements[i].text = $"P{i}: 0";
+        }
+
+        playerScoreElements[0].style.backgroundColor = Color.red;
+        playerScoreElements[1].style.backgroundColor = Color.blue;
+        playerScoreElements[2].style.backgroundColor = Color.green;
+        playerScoreElements[3].style.backgroundColor = Color.yellow;
+        
+        
+        leaderBoardLabel.text = "Scores:";
 
         StartCoroutine(GlobalCountdown(120));
 
         GameObject[] boats = GameObject.FindGameObjectsWithTag("Boat");
-        
-        Debug.Log($"num players: {GlobalState.Instance.numPlayers}");
+
+        ScoreController.Instance.OnScoreUpdate += UpdateScoreUI;
+    }
+
+    void UpdateScoreUI(List<int> newScores)
+    {
+
         for (int i = 0; i < GlobalState.Instance.numPlayers; i++)
         {
-            int countDown = 0;
-            for (int j = 0; j < GlobalState.Instance.numPlayers; j++)
-            {
-                BoatController boatController = boats[j].GetComponent<BoatController>();
-                if (boatController.boatSlot == i)
-                {
-                    countDown = (int)boatController.timeToLive;
-                }
-            }
-            StartCoroutine(BoatCountDown(i, countDown));
+            playerScoreElements[i].text = $"P{i}: {newScores[i]}";
         }
     }
 
@@ -76,23 +76,4 @@ public class InGameUIController : MonoBehaviour
         globalTimerLabel.text = "Time's up!";
     }
     
-    IEnumerator BoatCountDown(int boatNum, int initialCount)
-    {
-        int count = initialCount;
-
-        while (count > 0)
-        {
-            // Update the UI
-            boatTimers[boatNum].text = $"Boat {boatNum}" + ": " +  count.ToString();
-
-            // Wait for one second
-            yield return new WaitForSeconds(1);
-
-            // Decrease the count
-            count--;
-        }
-
-        // Countdown finished
-        boatTimers[boatNum].text = "Time's up!";
-    }
 }

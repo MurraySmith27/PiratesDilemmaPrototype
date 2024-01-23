@@ -54,7 +54,7 @@ public class BoatController : MonoBehaviour
     public void AddGold(int goldCapacity, int playerNumber)
     {
         boatCurrentCapacity += goldCapacity;
-        if (boatCurrentCapacity > boatTotalCapacity){
+        if (boatCurrentCapacity > boatTotalCapacity) {
             StopCoroutine(coroutine);
             StartCoroutine(SinkBoat());
         }
@@ -105,10 +105,7 @@ public class BoatController : MonoBehaviour
         int boatInstanceId = boatSpawner.RespawnBoat(boatSlot);
         OnSpawnBoat(boatSlot);
         
-        for (int i = 0; i < GlobalState.Instance.numPlayers; i++)
-        {
-            ScoreController.Instance.playerScores[i] += m_playerCapacity[i];
-        }
+        ScoreController.Instance.UpdateScore(new List<int>(m_playerCapacity));
         
         Destroy(this.gameObject);
     }

@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+public delegate void ScoreUpdateCallback(List<int> newScores); 
+
 public class ScoreController : MonoBehaviour
 {
-
+    public ScoreUpdateCallback OnScoreUpdate;
     private static ScoreController _instance;
     public static ScoreController Instance
     {
@@ -34,8 +36,13 @@ public class ScoreController : MonoBehaviour
         }
     }
 
-    public void UpdateScore()
+    public void UpdateScore(List<int> scoreDelta)
     {
+        for (int i = 0; i < GlobalState.Instance.numPlayers; i++)
+        {
+            playerScores[i] += scoreDelta[i];
+        }
         
+        OnScoreUpdate(playerScores);
     }
 }

@@ -16,7 +16,7 @@ public class BoatSpawner : MonoBehaviour
             m_boats.Add(Instantiate(Resources.Load("Shiptest_prefab"), 
                  m_boatSpawnLocations[i].transform.position, Quaternion.identity) as GameObject);
             BoatController boatController = m_boats[i].GetComponent<BoatController>();
-            boatController.timeToLive = new System.Random().Next(4, 6);
+            boatController.timeToLive = new System.Random().Next(20, 30);
             boatController.boatTotalCapacity = Random.Range(30, 80);
             boatController.boatSlot = i;
             boatController.boatSpawner = this;
@@ -29,8 +29,8 @@ public class BoatSpawner : MonoBehaviour
             m_boats[boatSlot] = GameObject.Instantiate(Resources.Load("Shiptest_prefab"), 
                 m_boatSpawnLocations[boatSlot].transform.position, Quaternion.identity) as GameObject;
             BoatController boatController = m_boats[boatSlot].GetComponent<BoatController>();
-            boatController.timeToLive = new System.Random().Next(4, 6);
-            boatController.boatTotalCapacity = Random.Range(5, 10);
+            boatController.timeToLive = new System.Random().Next(20, 30);
+            boatController.boatTotalCapacity = Random.Range(30, 80);
             boatController.boatSlot = boatSlot;
             boatController.boatSpawner = this;
             return m_boats[boatSlot].GetInstanceID();

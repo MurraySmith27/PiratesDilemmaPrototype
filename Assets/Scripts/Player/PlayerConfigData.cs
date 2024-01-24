@@ -14,8 +14,8 @@ public class PlayerConfigData : MonoBehaviour
     }
 
     [SerializeField] private List<Transform> m_playerSpawnPositions = new List<Transform>(4);
-
-    [SerializeField] private List<Color> m_playerColors = new List<Color>(4);
+    
+    public List<Color> m_playerColors = new List<Color>(4);
     
     [SerializeField]
     private int m_maxNumPlayers = 4;

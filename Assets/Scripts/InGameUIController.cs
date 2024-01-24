@@ -30,12 +30,8 @@ public class InGameUIController : MonoBehaviour
         {
             playerScoreElements[i] = root.Q<Label>($"player-{i + 1}-score");
             playerScoreElements[i].text = $"P{i}: 0";
+            playerScoreElements[i].style.backgroundColor = PlayerConfigData.Instance.m_playerColors[i];
         }
-
-        playerScoreElements[0].style.backgroundColor = Color.red;
-        playerScoreElements[1].style.backgroundColor = Color.blue;
-        playerScoreElements[2].style.backgroundColor = Color.green;
-        playerScoreElements[3].style.backgroundColor = Color.yellow;
         
         
         leaderBoardLabel.text = "Scores:";

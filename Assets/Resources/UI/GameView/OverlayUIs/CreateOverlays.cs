@@ -152,8 +152,21 @@ public class CreateOverlays : MonoBehaviour
         {
             for (int i = 0; i < PlayerConfigData.Instance.m_numPlayers; i++)
             {
-                Vector3 screen = Camera.main.WorldToScreenPoint(players[i].transform.position);
+                //Begin hack
+                players = GameObject.FindGameObjectsWithTag("Player");
+                goldControllers = players.Select(obj => { return obj.GetComponent<GoldController>(); }).ToArray();
 
+                if (playerElements[i] == null)
+                {
+                    playerElements[i] = playerUIAsset.Instantiate();
+                    root.Add(playerElements[i]);
+                    playerUILabels[i] = playerElements[i].Q<Label>("gold-count");
+                    currentPlayerLabels[i] = "0";
+                }
+                
+                //end hack
+                Vector3 screen = Camera.main.WorldToScreenPoint(players[i].transform.position);
+    
                 playerElements[i].style.left =
                     screen.x - (playerUILabels[i].layout.width / 2);
                 playerElements[i].style.top = (Screen.height - screen.y) - 100;

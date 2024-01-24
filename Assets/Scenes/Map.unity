@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -554,6 +554,79 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1001 &884082758
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2015773343873870339, guid: 66068f03e8e0f43919eaa1ee5d729f59, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.245581
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015773343873870339, guid: 66068f03e8e0f43919eaa1ee5d729f59, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5.3604546
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015773343873870339, guid: 66068f03e8e0f43919eaa1ee5d729f59, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.2232294
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015773343873870339, guid: 66068f03e8e0f43919eaa1ee5d729f59, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015773343873870339, guid: 66068f03e8e0f43919eaa1ee5d729f59, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015773343873870339, guid: 66068f03e8e0f43919eaa1ee5d729f59, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015773343873870339, guid: 66068f03e8e0f43919eaa1ee5d729f59, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015773343873870339, guid: 66068f03e8e0f43919eaa1ee5d729f59, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015773343873870339, guid: 66068f03e8e0f43919eaa1ee5d729f59, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015773343873870339, guid: 66068f03e8e0f43919eaa1ee5d729f59, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5929504078557323350, guid: 66068f03e8e0f43919eaa1ee5d729f59, type: 3}
+      propertyPath: m_Name
+      value: PlayerConfig
+      objectReference: {fileID: 0}
+    - target: {fileID: 7221557646763328349, guid: 66068f03e8e0f43919eaa1ee5d729f59, type: 3}
+      propertyPath: m_playerSpawnPositions.Array.data[0]
+      value: 
+      objectReference: {fileID: 150945836}
+    - target: {fileID: 7221557646763328349, guid: 66068f03e8e0f43919eaa1ee5d729f59, type: 3}
+      propertyPath: m_playerSpawnPositions.Array.data[1]
+      value: 
+      objectReference: {fileID: 2106887431}
+    - target: {fileID: 7221557646763328349, guid: 66068f03e8e0f43919eaa1ee5d729f59, type: 3}
+      propertyPath: m_playerSpawnPositions.Array.data[2]
+      value: 
+      objectReference: {fileID: 1414346710}
+    - target: {fileID: 7221557646763328349, guid: 66068f03e8e0f43919eaa1ee5d729f59, type: 3}
+      propertyPath: m_playerSpawnPositions.Array.data[3]
+      value: 
+      objectReference: {fileID: 371946312}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 66068f03e8e0f43919eaa1ee5d729f59, type: 3}
 --- !u!1001 &1051990012
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -878,14 +951,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91920d03207584934917090e83049633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 3689457561885173253, guid: 72588cd5f34a24a62a1206854c0f7e67, type: 3}
-  playerSpawnPositions:
-  - {fileID: 150945835}
-  - {fileID: 2106887430}
-  - {fileID: 1414346709}
-  - {fileID: 371946311}
-  players: []
-  numPlayers: 0
 --- !u!4 &2059310153
 Transform:
   m_ObjectHideFlags: 0
@@ -1221,3 +1286,4 @@ SceneRoots:
   - {fileID: 1051990012}
   - {fileID: 570230915}
   - {fileID: 2139225364093603716}
+  - {fileID: 884082758}

@@ -30,7 +30,7 @@ public class ScoreController : MonoBehaviour
     void Start()
     {
         playerScores = new List<int>();
-        for (int i = 0; i < GlobalState.Instance.numPlayers; i++)
+        for (int i = 0; i < PlayerConfigData.Instance.m_numPlayers; i++)
         {
             playerScores.Add(0);
         }
@@ -38,7 +38,7 @@ public class ScoreController : MonoBehaviour
 
     public void UpdateScore(List<int> scoreDelta)
     {
-        for (int i = 0; i < GlobalState.Instance.numPlayers; i++)
+        for (int i = 0; i < PlayerConfigData.Instance.m_numPlayers; i++)
         {
             playerScores[i] += scoreDelta[i];
         }

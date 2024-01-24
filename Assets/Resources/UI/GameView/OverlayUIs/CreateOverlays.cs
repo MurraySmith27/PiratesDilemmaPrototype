@@ -138,7 +138,7 @@ public class CreateOverlays : MonoBehaviour
 
         Label[] playerUILabels = new Label[4];
 
-        for (int i = 0; i < GlobalState.Instance.numPlayers; i++)
+        for (int i = 0; i < PlayerConfigData.Instance.m_numPlayers; i++)
         {
             playerElements[i] = playerUIAsset.Instantiate();
             root.Add(playerElements[i]);
@@ -150,7 +150,7 @@ public class CreateOverlays : MonoBehaviour
 
         while (true)
         {
-            for (int i = 0; i < GlobalState.Instance.numPlayers; i++)
+            for (int i = 0; i < PlayerConfigData.Instance.m_numPlayers; i++)
             {
                 Vector3 screen = Camera.main.WorldToScreenPoint(players[i].transform.position);
 

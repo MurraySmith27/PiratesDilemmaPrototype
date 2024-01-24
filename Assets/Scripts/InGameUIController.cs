@@ -26,7 +26,7 @@ public class InGameUIController : MonoBehaviour
 
         playerScoreElements = new Label[4];
 
-        for (int i = 0; i < GlobalState.Instance.numPlayers; i++)
+        for (int i = 0; i < PlayerConfigData.Instance.m_numPlayers; i++)
         {
             playerScoreElements[i] = root.Q<Label>($"player-{i + 1}-score");
             playerScoreElements[i].text = $"P{i}: 0";
@@ -50,7 +50,7 @@ public class InGameUIController : MonoBehaviour
     void UpdateScoreUI(List<int> newScores)
     {
 
-        for (int i = 0; i < GlobalState.Instance.numPlayers; i++)
+        for (int i = 0; i < PlayerConfigData.Instance.m_numPlayers; i++)
         {
             playerScoreElements[i].text = $"P{i}: {newScores[i]}";
         }

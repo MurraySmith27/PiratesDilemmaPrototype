@@ -33,7 +33,7 @@ public class GoldController : MonoBehaviour
 
         for (int i = 0; i < pickupGold.Count; i++)
         {
-            if (i == GetComponent<PlayerData>().playerNum)
+            if (i == GetComponent<PlayerData>().m_playerNum)
             {
                 pickupGold[i].performed += ctx =>
                 { OnPickupGold(ctx); };
@@ -77,7 +77,7 @@ public class GoldController : MonoBehaviour
             {
                 Destroy(spawnedGold);
                 goldPrefabSpawned = false;
-                boat.GetComponent<BoatController>().AddGold(goldCarried, GetComponent<PlayerData>().playerNum);
+                boat.GetComponent<BoatController>().AddGold(goldCarried, GetComponent<PlayerData>().m_playerNum);
                 goldCarried = 0;
                 
             }

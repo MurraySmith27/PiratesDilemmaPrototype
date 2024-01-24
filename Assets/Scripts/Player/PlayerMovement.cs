@@ -3,44 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(PlayerInput), typeof(PlayerData), typeof(GoldController))]
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] private float m_speed;
+    
+    private GoldController m_goldController;
+    private PlayerInput m_playerInput;
 
-    [SerializeField] private float default_speed = 0.5f;
-    private float speed;
-    [SerializeField] private List<InputAction> moveActionsPerPlayer;
-    GoldController goldController;
+    private InputAction m_moveAction;
 
-    private PlayerData playerData;
     // Update is called once per frame
     void Update()
     {
-        speed = default_speed * ((100 - 2 * goldController.goldCarried) / 100f);
-        Vector2 moveVector = moveActionsPerPlayer[playerData.playerNum].ReadValue<Vector2>().normalized * speed;
-
+        float speed = m_speed * ((100 - 2 * m_goldController.goldCarried) / 100f);
+        Vector2 moveVector = m_moveAction.ReadValue<Vector2>().normalized * speed;
         transform.Translate(new Vector3(moveVector.x, 0f, moveVector.y));
-
     }
 
-    void Start()
+    void Awake()
     {
-        goldController = GetComponent<GoldController>();
-        playerData = GetComponent<PlayerData>();
+        m_goldController = GetComponent<GoldController>();
+        m_playerInput = GetComponent<PlayerInput>();
+        
+        m_moveAction = m_playerInput.actions["Move"];
     }
     
     public void OnEnable()
     {
-        foreach (InputAction x in moveActionsPerPlayer)
-        {
-            x.Enable();
-        }
+        m_moveAction.Enable();
     }
 
     public void OnDisable()
     {
-        foreach (InputAction x in moveActionsPerPlayer)
-        {
-            x.Disable();
-        }
+        m_moveAction.Disable();
     }
 }

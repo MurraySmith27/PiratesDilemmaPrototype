@@ -31,15 +31,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "Join",
-                    "type": "Button",
-                    "id": "15bca8d3-231f-4e81-ab52-d41fb7974517",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -196,10 +187,58 @@
                     "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "CharacterSelect",
+            "id": "29742f9c-ed34-46b3-b1bd-ef9aad0c9bdd",
+            "actions": [
+                {
+                    "name": "ReadyUp",
+                    "type": "Button",
+                    "id": "f85a0d33-9db8-4d25-a57c-6c834ac62edb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Join",
+                    "type": "Button",
+                    "id": "32e1f21a-7e05-40ed-869a-8bd29e6ef232",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "7a6b4cdb-6bc3-405c-8f6a-9a0c87774ad3",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReadyUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "08ab791b-9204-4324-a9ec-36acd7751799",
+                    "id": "11ef2c79-5cd6-4e07-be25-b13f5b061802",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReadyUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9bb8bd19-d139-4f65-9c0d-734219ce9724",
                     "path": "<Keyboard>/enter",
                     "interactions": "",
                     "processors": "",
@@ -210,7 +249,7 @@
                 },
                 {
                     "name": "",
-                    "id": "7988b9a6-adee-43c8-bbef-92f36da36c8f",
+                    "id": "46a271be-dfe6-4933-a75c-4ec926a10e25",
                     "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",

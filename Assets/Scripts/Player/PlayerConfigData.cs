@@ -105,4 +105,19 @@ public class PlayerConfigData : MonoBehaviour
 
         m_playerControlSchemesList[playerNum - 1].devices = null;
     }
+
+    public void SwitchToActionMapForPlayer(int playerNum, string actionMapName)
+    {
+        m_playerInputObjects[playerNum - 1].actions.Disable();
+        
+        m_playerInputObjects[playerNum - 1].actions.FindActionMap(actionMapName).Enable();
+    }
+    
+    public void OnDisable()
+    {
+        foreach (PlayerInput playerInput in m_playerInputObjects)
+        {
+            playerInput.actions.Disable();
+        }
+    }
 }

@@ -5,9 +5,10 @@ using UnityEngine.InputSystem;
 
 public class GoldController : MonoBehaviour
 {
-    // Start is called before the first frame update
     
-    //Game Objects
+    private PlayerInput m_playerInput;
+    private InputAction m_interactAction;
+    
     private GameObject goldPile;
     private GameObject spawnedGold;
 
@@ -15,33 +16,28 @@ public class GoldController : MonoBehaviour
     private bool goldPrefabSpawned = false;
 
     public float goldPrefabScaleIncreaseFactor = 1.1f;
-     
-    //Player Actions
-    public List<InputAction> pickupGold;
 
     public int goldCarried = 0;
 
     public int goldCapacity = 30;
+    void Awake()
+    {   
+        //Assigning Callbacks
+
+        m_playerInput = GetComponent<PlayerInput>();
+
+        m_interactAction = m_playerInput.actions["Interact"];
+        m_interactAction.performed += ctx => { OnPickupGold(ctx); };
+        m_interactAction.performed += ctx => { OnDropGold(ctx); };
+    }
+
     void Start()
-    {   //Finding GameObjects
+    {
+        //Finding GameObjects
         if (goldPile == null)
         {
             goldPile = GameObject.FindGameObjectWithTag("GoldPile");
         }
-        
-        //Assigning Callbacks
-
-        for (int i = 0; i < pickupGold.Count; i++)
-        {
-            if (i == GetComponent<PlayerData>().m_playerNum)
-            {
-                pickupGold[i].performed += ctx =>
-                { OnPickupGold(ctx); };
-                pickupGold[i].performed += ctx => { OnDropGold(ctx); };
-            }
-        }
-        
-        
     }
     
 
@@ -115,17 +111,11 @@ public class GoldController : MonoBehaviour
 
     public void OnEnable()
     {
-        foreach (InputAction x in pickupGold)
-        {
-            x.Enable();
-        }
+        m_interactAction.Enable();
     }
 
     public void OnDisable()
     {
-        foreach (InputAction x in pickupGold)
-        {
-            x.Disable();
-        }
+        m_interactAction.Disable();
     }
 }

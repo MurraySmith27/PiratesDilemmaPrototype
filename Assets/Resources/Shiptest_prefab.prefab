@@ -51,6 +51,7 @@ MonoBehaviour:
   boatTotalCapacity: 0
   boatCurrentCapacity: 0
   m_playerCapacity: 00000000000000000000000000000000
+  acceptingGold: 1
   timeToLive: 0
   boatSlot: 0
 --- !u!82 &3036808960546493337
@@ -160,7 +161,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 003cb84628b14474bb1352ea17c26ed1, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

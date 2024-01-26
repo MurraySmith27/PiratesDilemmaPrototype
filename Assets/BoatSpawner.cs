@@ -17,7 +17,7 @@ public class BoatSpawner : MonoBehaviour
                  m_boatSpawnLocations[i].transform.position, Quaternion.identity) as GameObject);
             BoatController boatController = m_boats[i].GetComponent<BoatController>();
             boatController.timeToLive = new System.Random().Next(20, 30);
-            boatController.boatTotalCapacity = Random.Range(30, 80);
+            boatController.boatTotalCapacity = Random.Range(60, 80);
             boatController.boatSlot = i;
             boatController.boatSpawner = this;
             
@@ -30,7 +30,7 @@ public class BoatSpawner : MonoBehaviour
                 m_boatSpawnLocations[boatSlot].transform.position, Quaternion.identity) as GameObject;
             BoatController boatController = m_boats[boatSlot].GetComponent<BoatController>();
             boatController.timeToLive = new System.Random().Next(20, 30);
-            boatController.boatTotalCapacity = Random.Range(30, 80);
+            boatController.boatTotalCapacity = Random.Range(60, 80);
             boatController.boatSlot = boatSlot;
             boatController.boatSpawner = this;
             return m_boats[boatSlot].GetInstanceID();

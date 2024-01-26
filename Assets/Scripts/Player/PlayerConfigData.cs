@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 
 public delegate void OnPlayerJoin(int newPlayerNum);
@@ -118,6 +120,23 @@ public class PlayerConfigData : MonoBehaviour
         foreach (PlayerInput playerInput in m_playerInputObjects)
         {
             playerInput.actions.Disable();
+        }
+    }
+
+    public void OnGameSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "MainGame")
+        {
+            //move players to spawn positions
+
+            for (int i = 0; i < m_numPlayers; i++)
+            {
+                GameObject spawnPos = GameObject.Find($"P{i + 1}Spawn");
+
+                m_playerInputObjects[i].gameObject.transform.position = spawnPos.transform.position;
+                
+                SwitchToActionMapForPlayer(i + 1, "InGame");
+            }
         }
     }
 }

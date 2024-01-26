@@ -77,9 +77,10 @@ public class CharacterSelectUIController : MonoBehaviour
         m_root.Add(newReadyUpHover);
         
         Vector3 screen = Camera.main.WorldToScreenPoint(m_renderTextureQuads[newPlayerNum - 1].transform.position);
-        // newReadyUpHover.style.left =
-        //     screen.x - (newReadyUpHover.layout.width / 2) + 50;
-        // newReadyUpHover.style.top = (Screen.height - screen.y) + 50;
+       // newReadyUpHover.style.left =
+        //    screen.x;// - (newReadyUpHover.layout.width / 2) + 50;
+        //newReadyUpHover.style.top = (Screen.height - screen.y);// + 50;
+        //Debug.Log($"screen: {screen}. Resolved Style: {newReadyUpHover.resolvedStyle.left}, {newReadyUpHover.resolvedStyle.top}");
 
         PlayerInput input = PlayerConfigData.Instance.m_playerInputObjects[newPlayerNum - 1];
 
@@ -97,13 +98,14 @@ public class CharacterSelectUIController : MonoBehaviour
             image.sprite = m_keyboardReadyUpIcon;
         }
         
-        m_readyPlayers.Add(false);
+        m_readyPlayers.Add(true);
         
         newReadyUpHover.Q<VisualElement>("button-icon").Add(image);
         
         m_readyUpActions.Add(input.actions["ReadyUp"]);
 
         m_readyUpActions[newPlayerNum - 1].performed += ctx => { PlayerReadyUpToggle(newPlayerNum); };
+        PlayerReadyUpToggle(newPlayerNum);
     }
 
     private void PlayerReadyUpToggle(int playerNum)
@@ -149,5 +151,10 @@ public class CharacterSelectUIController : MonoBehaviour
         yield return new WaitForSeconds(m_startGameCountdownSeconds);
 
         SceneManager.LoadScene("MainGame");
+        
+        //when scene loaded
+
+        SceneManager.sceneLoaded += GameStartHandler.Instance.StartGame;
+        SceneManager.sceneLoaded += PlayerConfigData.Instance.OnGameSceneLoaded;
     }
 }

@@ -13,29 +13,35 @@ public class PlayerMovement : MonoBehaviour
 
     private InputAction m_moveAction;
 
+    private bool m_intialized = false;
+
     // Update is called once per frame
     void Update()
     {
-        float speed = m_speed * ((100 - 2 * m_goldController.goldCarried) / 100f);
-        Vector2 moveVector = m_moveAction.ReadValue<Vector2>().normalized * speed;
-        transform.Translate(new Vector3(moveVector.x, 0f, moveVector.y));
+        if (m_intialized)
+        {
+            float speed = m_speed * ((100 - 2 * m_goldController.goldCarried) / 100f);
+            Vector2 moveVector = m_moveAction.ReadValue<Vector2>().normalized * speed;
+            transform.Translate(new Vector3(moveVector.x, 0f, moveVector.y));
+        }
     }
 
-    void Awake()
+    void OnGameStart()
     {
+        Debug.Log("on game start called in playermovement!");
         m_goldController = GetComponent<GoldController>();
         m_playerInput = GetComponent<PlayerInput>();
         
         m_moveAction = m_playerInput.actions["Move"];
+
+        m_intialized = true;
     }
     
-    public void OnEnable()
+    void Awake()
     {
-        m_moveAction.Enable();
+        GameStartHandler.Instance.onGameStart += OnGameStart;
+
+        m_intialized = false;
     }
 
-    public void OnDisable()
-    {
-        m_moveAction.Disable();
-    }
 }

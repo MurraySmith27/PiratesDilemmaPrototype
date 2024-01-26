@@ -20,7 +20,15 @@ public class GoldController : MonoBehaviour
     public int goldCarried = 0;
 
     public int goldCapacity = 30;
+
+    private bool m_initialized = false;
+
     void Awake()
+    {
+        GameStartHandler.Instance.onGameStart += OnGameStart;
+    }
+    
+    void OnGameStart()
     {   
         //Assigning Callbacks
 
@@ -29,15 +37,14 @@ public class GoldController : MonoBehaviour
         m_interactAction = m_playerInput.actions["Interact"];
         m_interactAction.performed += ctx => { OnPickupGold(ctx); };
         m_interactAction.performed += ctx => { OnDropGold(ctx); };
-    }
 
-    void Start()
-    {
         //Finding GameObjects
         if (goldPile == null)
         {
             goldPile = GameObject.FindGameObjectWithTag("GoldPile");
         }
+
+        m_initialized = true;
     }
     
 
@@ -108,14 +115,5 @@ public class GoldController : MonoBehaviour
         spawnedGold.transform.localPosition = Vector3.forward * 2; // Set to zero if you want it to be at the parent's position
         spawnedGold.transform.localRotation = Quaternion.identity; // Set to identity if you want it to have the parent's rotation
     }
-
-    public void OnEnable()
-    {
-        m_interactAction.Enable();
-    }
-
-    public void OnDisable()
-    {
-        m_interactAction.Disable();
-    }
+    
 }

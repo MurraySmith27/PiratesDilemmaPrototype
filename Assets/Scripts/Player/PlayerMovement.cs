@@ -1,7 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
+
+// using System.Numerics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Vector3 = UnityEngine.Vector3;
+using Vector2 = UnityEngine.Vector2;
 
 [RequireComponent(typeof(PlayerInput), typeof(PlayerData), typeof(GoldController))]
 public class PlayerMovement : MonoBehaviour
@@ -13,17 +20,51 @@ public class PlayerMovement : MonoBehaviour
 
     private InputAction m_moveAction;
 
-    private bool m_intialized = false;
+    private bool m_initialized = false;
 
-    // Update is called once per frame
+    //for dashing
+    [SerializeField] private float dashDistance = 2f;
+    [SerializeField] private float dashDuration = 0.5f;
+    private InputAction m_dashAction;
+    private bool isDashing;
+
     void Update()
     {
-        if (m_intialized)
+        if (m_initialized)
         {
-            float speed = m_speed * ((100 - 2 * m_goldController.goldCarried) / 100f);
-            Vector2 moveVector = m_moveAction.ReadValue<Vector2>().normalized * speed;
-            transform.Translate(new Vector3(moveVector.x, 0f, moveVector.y));
+            if (m_dashAction.triggered && !isDashing) {
+
+                StartCoroutine(Dash());
+            }else {
+                float speed = m_speed * ((100 - 2 * m_goldController.goldCarried) / 100f);
+                Vector2 moveVector = m_moveAction.ReadValue<Vector2>().normalized * speed;
+                transform.Translate(new Vector3(moveVector.x, 0f, moveVector.y));
+            }
         }
+    }
+
+    IEnumerator Dash(){
+        isDashing = true;
+
+        Vector3 initial = transform.position;
+        Vector2 dashVector = m_moveAction.ReadValue<Vector2>().normalized * dashDistance;
+        Vector3 final = new Vector3(initial.x + dashVector.x, initial.y, initial.z + dashVector.y);
+        Vector3 pos;
+        for (float t = 0; t < 1; t += Time.deltaTime / dashDuration){
+
+            pos = initial + (final - initial) * Mathf.Pow(t, 1f/3f);
+
+            transform.position = pos;
+
+            yield return null;
+        }
+
+        isDashing = false;
+
+    }
+
+    private void OnCollisionEnter(Collision other) {
+        
     }
 
     void OnGameStart()
@@ -33,15 +74,15 @@ public class PlayerMovement : MonoBehaviour
         m_playerInput = GetComponent<PlayerInput>();
         
         m_moveAction = m_playerInput.actions["Move"];
-
-        m_intialized = true;
+        m_dashAction = m_playerInput.actions["Dash"];
+        m_initialized = true;
     }
     
     void Awake()
     {
         GameStartHandler.Instance.onGameStart += OnGameStart;
 
-        m_intialized = false;
+        m_initialized = false;
     }
 
 }

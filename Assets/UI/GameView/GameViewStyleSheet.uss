@@ -1,0 +1,11 @@
+.BoatTimerLabel {
+    align-items: stretch;
+    align-self: flex-start;
+    height: 46px;
+    width: 152px;
+    font-size: 28px;
+    color: rgb(147, 75, 75);
+    -unity-text-align: upper-left;
+    -unity-font-style: bold;
+    position: absolute;
+}

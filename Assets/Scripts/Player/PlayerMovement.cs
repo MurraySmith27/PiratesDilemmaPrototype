@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashDuration = 0.5f;
     private InputAction m_dashAction;
     private bool isDashing;
+    [SerializeField] private float pushForce = 10f;
 
     void Update()
     {
@@ -41,6 +42,40 @@ public class PlayerMovement : MonoBehaviour
                 transform.Translate(new Vector3(moveVector.x, 0f, moveVector.y));
             }
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player") && isDashing)  // change it to layers
+        {
+            Debug.Log("hit");
+            Rigidbody otherPlayerRigidbody = collision.gameObject.GetComponent<Rigidbody>();
+
+            if (otherPlayerRigidbody != null)
+            {
+                Vector3 direction = collision.transform.position - transform.position; 
+                direction.y = 0; 
+                Vector2 dashDirection = new Vector2(direction.x, direction.z).normalized;
+                StartCoroutine(Slide(dashDirection, otherPlayerRigidbody));
+            }
+        }
+    }
+
+    IEnumerator Slide(Vector2 dashDirection, Rigidbody rigidbody)
+    {
+        isDashing = true;
+
+        Vector3 initial = rigidbody.position; 
+        Vector3 final = initial + new Vector3(dashDirection.x, 0, dashDirection.y) * dashDistance;
+        Vector3 pos;
+        for (float t = 0; t < 1; t += Time.deltaTime / dashDuration)
+        {
+            pos = initial + (final - initial) * Mathf.Pow(t, 1f / 3f);
+            rigidbody.MovePosition(pos); 
+            yield return null;
+        }
+
+        isDashing = false;
     }
 
     IEnumerator Dash(){
@@ -61,10 +96,6 @@ public class PlayerMovement : MonoBehaviour
 
         isDashing = false;
 
-    }
-
-    private void OnCollisionEnter(Collision other) {
-        
     }
 
     void OnGameStart()
